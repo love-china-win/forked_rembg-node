@@ -1,8 +1,8 @@
 {
-	"name": "rembg-node",
-	"version": "2.0.1",
+	"name": "@xixiyahaha/rembg-node",
+	"version": "2.1.0",
 	"description": "Rembg lets you easily remove backgrounds from images using the U2-Net AI model",
-	"repository": "https://github.com/makifoxgirl/rembg-node",
+	"repository": "",
 	"author": "Maki",
 	"license": "MIT",
 	"main": "dist/index.js",
@@ -19,12 +19,12 @@
 		"onnxruntime-node": "^1.11.0"
 	},
 	"peerDependencies": {
-		"sharp": "^0.30.7"
+		"sharp": ">=0.32.4"
 	},
 	"devDependencies": {
 		"@types/node": "^18.0.3",
-		"@types/sharp": "^0.30.4",
-		"sharp": "^0.30.7",
+		"@types/sharp": ">=0.32.4",
+		"sharp": ">=0.32.4",
 		"typescript": "^4.7.4"
 	}
 }

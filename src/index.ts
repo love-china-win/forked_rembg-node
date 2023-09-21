@@ -84,7 +84,7 @@ function binaryErosion(
 }
 
 const exists = async (path: string) =>
-	(await fs.stat(path).catch(() => {})) != null;
+	(await fs.stat(path).catch(() => { })) != null;
 
 export class Rembg {
 	private modelDownloaded = false;
@@ -130,7 +130,7 @@ export class Rembg {
 		}
 	}
 
-	async remove(sharpInput: sharp.Sharp) {
+	async remove(sharpInput: sharp.Sharp, bgColor: string = null) {
 		if (this.modelDownloaded == false) {
 			await new Promise(resolve => {
 				this.promisesResolvesUntillDownloaded.push(resolve);
@@ -248,11 +248,18 @@ export class Rembg {
 			let alpha = sharpMask[i * 3];
 			// if (alpha < foregroundThreshold) alpha = 0;
 			// let alpha = trimap[i];
+			// console.log(alpha);
 			finalPixels[i * 4 + 3] = alpha;
+		}
+
+		if (bgColor == null) {
+			return sharp(finalPixels, {
+				raw: { channels: 4, width, height },
+			});
 		}
 
 		return sharp(finalPixels, {
 			raw: { channels: 4, width, height },
-		});
+		}).flatten({ background: bgColor });
 	}
 }

@@ -1,5 +1,9 @@
 # Rembg Node
 
+Ori repo : https://github.com/makifoxgirl/rembg-node
+
+change: sharp version.
+
 [![](https://img.shields.io/npm/v/rembg-node)](https://www.npmjs.com/package/rembg-node)
 
 Rembg lets you **easily remove backgrounds** from images using the [U2-Net AI model](https://github.com/xuebinqin/U-2-Net)
@@ -11,9 +15,9 @@ It uses [sharp](https://github.com/lovell/sharp) for input and output so you can
 The masking algorithm isn't fully complete yet, but the results are pretty good already!
 
 ```bash
-yarn add sharp rembg-node
+yarn add sharp @xixiyahaha/rembg-node
 
-npm install sharp rembg-node
+npm install sharp @xixiyahaha/rembg-node
 ```
 
 ## Example
@@ -21,7 +25,7 @@ npm install sharp rembg-node
 <img height="180" src="https://user-images.githubusercontent.com/8362329/178584133-4aa2483a-8b9c-4f7b-a785-ddcba800e57f.png"/>
 
 ```ts
-import { Rembg } from "rembg-node";
+import { Rembg } from "@xixiyahaha/rembg-node";
 import sharp from "sharp";
 
 // const { Rembg } = require("rembg-node");
