@@ -130,6 +130,12 @@ export class Rembg {
 		}
 	}
 
+	/**
+	 * 去除指定图像的背景
+	 * @param sharpInput 输入图片对象
+	 * @param bgColor 自定义背景颜色（可选参数）。字符串格式，如：'#F0A703'，'red'等等。
+	 * @returns 
+	 */
 	async remove(sharpInput: sharp.Sharp, bgColor: string = null) {
 		if (this.modelDownloaded == false) {
 			await new Promise(resolve => {
@@ -189,17 +195,48 @@ export class Rembg {
 		const outputMaskData = results[mostPreciseOutputName]
 			.data as Float32Array;
 
-		for (let i = 0; i < outputMaskData.length; i++) {
-			outputMaskData[i] = outputMaskData[i] * 255;
+		// sharp 0.33版本开始，有兼容问题。需要调整一下。
+		let sharpVersion = "0.32.4";
+		try {
+			sharpVersion = sharp.versions["sharp"];
+		} catch (error) {
+
 		}
 
-		// will make [rgb rgb rgb] unfortunately
-		const sharpMask = await sharp(outputMaskData, {
-			raw: { channels: 1, width: imageSize, height: imageSize },
-		})
-			.resize(width, height, { fit: "fill" })
-			.raw()
-			.toBuffer();
+		let lastOutPutMaskData = new Int32Array(outputMaskData.length);
+		for (let i = 0; i < outputMaskData.length; i++) {
+			outputMaskData[i] = outputMaskData[i] * 255;
+
+			if (sharpVersion > '0.32.6') {
+				lastOutPutMaskData[i] = outputMaskData[i] * 255;
+			}
+		}
+
+		let sharpMask;
+		if (sharpVersion <= '0.32.6') {
+			sharpMask = await sharp(lastOutPutMaskData, {
+				raw: { channels: 1, width: imageSize, height: imageSize },
+			})
+				.resize(width, height, { fit: "fill" })
+				.raw()
+				.toBuffer();
+		}
+		else {
+			sharpMask = await sharp(lastOutPutMaskData, {
+				raw: { channels: 1, width: imageSize, height: imageSize },
+			})
+				.resize(width, height, { fit: "fill" })
+				.raw()
+				.toBuffer();
+		}
+
+		// // will make [rgb rgb rgb] unfortunately
+		// const sharpMask = await sharp(lastOutPutMaskData, {
+		// 	raw: { channels: 1, width: imageSize, height: imageSize },
+		// })
+		// 	.resize(width, height, { fit: "fill" })
+		// 	.raw()
+		// 	.toBuffer();
 
 		// width * height array of 0 to 255
 		const maskData: number[] = [];
