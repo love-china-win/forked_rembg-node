@@ -19,12 +19,12 @@
 		"onnxruntime-node": "^1.11.0"
 	},
 	"peerDependencies": {
-		"sharp": ">=0.32.4"
+		"sharp": ">=0.33.4"
 	},
 	"devDependencies": {
 		"@types/node": "^18.0.3",
 		"@types/sharp": ">=0.32.0",
-		"sharp": ">=0.32.4",
+		"sharp": ">=0.33.4",
 		"typescript": "^4.7.4"
 	}
 }

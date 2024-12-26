@@ -2,7 +2,12 @@ import { Rembg } from "./dist/index.js";
 import sharp from "sharp";
 
 (async () => {
-	const input = sharp("test-input.jpg");
+
+	const imagePath = 'D:\\4_WF406310.jpg'
+	// const input = sharp("test-input.jpg");
+
+	const input = sharp(imagePath);
+
 
 	// optional arguments
 	const rembg = new Rembg({
